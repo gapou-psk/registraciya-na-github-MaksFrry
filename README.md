@@ -1,121 +1,44 @@
- 
+USE store;
+SELECT category.name AS category_name , good.name AS good_name FROM category_has_good as chg
+INNER JOIN good
+ON good.id = chg.good_id
+INNER JOIN category
+ON category.id = chg.category_id
+ORDER BY good_name
 
-#1
+SELECT * FROM billing WHERE payer_email='vasya@mail.com'
 
-use billing_simple;
+USE billing;
+INSERT INTO billing(payer_email) VALUES ('pasha@mail.com');
+INSERT INTO billing(recipient_email) VALUES ('katya@mail.com');
+INSERT INTO billing(sum) VALUES ('300.00');
+INSERT INTO billing(currency) VALUES ('EUR');
+INSERT INTO billing(billing_date) VALUES ('14.02.2016');
+INSERT INTO billing(comment) VALUES ('Valentines day present');
+SELECT * FROM billing WHERE SUM=300;
 
-select * from billing where payer_email= 'vasya@mail.com'
+USE billing;
+UPDATE billing
+SET 
+payer_email='igor@mail.com'
+WHERE payer_email='alex@mail.com';
 
-#2
-
-use billing_simple;
-
-insert into billing (payer_email, recipient_email, sum, currency, billing_date, comment) values('pasha@mail.com', 'katya@mail.com', 300, 'EUR', '2016-02-14', 'Valentines day present)')
-
-#3
-
-use billing_simple;
-
-UPDATE billing SET payer_email= 'alex@mail.com' where 'payer_email'= 'igor@mail.com';
-
-#4
-
-use billing_simple;
-
-delete from billing where recipient_email= NULL or recipient_email= '';
-
-#5
+USE billing;
+DELETE FROM billing
+WHERE payer_email= '' or recipient_email='';
 
 USE project_simple;
-
 SELECT count(project_name) FROM project
 
-#6
-
 USE store_simple;
-
 SELECT category, count(category) FROM store GROUP BY category
 
-#7
-
 USE store_simple;
-
 SELECT category, count(category), Max(price) FROM store
-
 GROUP BY price
-
 ORDER by price desc
-
 LIMIT 5;
 
-#8
-
 USE project_simple;
-
 SELECT count(project_name), sum(budget), avg(datediff(project_start, project_finish)) FROM project
 
-
-
-
-Степик
-#1
-
-use billing_simple;
-
-select * from billing where payer_email= 'vasya@mail.com'
-
-#2
-
-use billing_simple;
-
-insert into billing (payer_email, recipient_email, sum, currency, billing_date, comment) values('pasha@mail.com', 'katya@mail.com', 300, 'EUR', '2016-02-14', 'Valentines day present)')
-
-#3
-
-use billing_simple;
-
-UPDATE billing SET payer_email= 'alex@mail.com' where 'payer_email'= 'igor@mail.com';
-
-#4
-
-use billing_simple;
-
-delete from billing where recipient_email= NULL or recipient_email= '';
-
-#5
-
-USE project_simple;
-
-SELECT count(project_name) FROM project
-
-#6
-
-USE store_simple;
-
-SELECT category, count(category) FROM store GROUP BY category
-
-#7
-
-USE store_simple;
-
-SELECT category, count(category), Max(price) FROM store
-
-GROUP BY price
-
-ORDER by price desc
-
-LIMIT 5;
-
-#8
-
-USE project_simple;
-
-SELECT count(project_name), sum(budget), avg(datediff(project_start, project_finish)) FROM project
-
-INSERT INTO book (title, author, price, amount)
-VALUES (N'Мастер и Маргарита', N'Булгаков М.А.', 670.99, 3)
-
-INSERT INTO book (title, author, price, amount)
-VALUES ('Белая гвардия', 'Булгаков М.А.', 540.50, 5),
-('Идиот', 'Достоевский Ф.М.', 460.00, 10),
-('Братья Карамазовы', 'Достоевский Ф.М.', 799.01, 2);
