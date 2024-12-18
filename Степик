@@ -1,0 +1,64 @@
+create table book (book_id int primary key auto_increment, title varchar(50), author varchar(30), price decimal(8,2), 
+amount int);
+
+INSERT INTO book (title, author, price, amount)
+VALUES (N'Мастер и Маргарита', N'Булгаков М.А.', 670.99, 3)
+
+INSERT INTO book (title, author, price, amount)
+VALUES ('Белая гвардия', 'Булгаков М.А.', 540.50, 5),
+('Идиот', 'Достоевский Ф.М.', 460.00, 10),
+('Братья Карамазовы', 'Достоевский Ф.М.', 799.01, 2);
+
+SELECT * FROM book;
+
+SELECT author, title, price FROM book;
+
+SELECT title AS Название, author AS Автор FROM book;
+
+SELECT title, amount, 1.65 * amount AS pack FROM book;
+
+SELECT title, author , amount ,
+ROUND ((price-price/100*30),2) AS new_price
+FROM book;
+
+SELECT 
+ author, 
+ title, 
+ ROUND ( 
+ IF( 
+ author = 'Булгаков М.А.', 
+ price * 1.1, 
+ IF ( 
+ author = 'Есенин С.А.', price * 1.05, 
+ price 
+ ) 
+ ), 
+ 2 
+ ) AS new_price 
+FROM 
+ book;
+ 
+ SELECT author, title, price 
+FROM book 
+WHERE amount<10;
+
+SELECT author, title, price 
+FROM book 
+WHERE amount<10;
+
+SELECT title, author 
+FROM book 
+WHERE price BETWEEN 540.50 AND 800 AND amount IN(2 , 3 , 5 , 7);
+
+SELECT author, title 
+FROM book 
+WHERE amount between 2 and 14 
+ORDER BY author DESC , title asc ;
+
+SELECT title, author 
+FROM book 
+WHERE title LIKE "_% _%" and author LIKE "_% %С.%" 
+order by title asc;
+
+SELECT *
+FROM book
